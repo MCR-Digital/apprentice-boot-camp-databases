@@ -42,9 +42,12 @@ services:
       PGADMIN_DEFAULT_PASSWORD: SuperSecret
       PGADMIN_CONFIG_SERVER_MODE: "False"
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGPASSFILE: /pgadmin4/.pgpass
     ports:
       - "5050:80"
     volumes:
       - ./pgadmin4/servers.json:/pgadmin4/servers.json
+      - ./pgadmin4/.pgpass:/pgadmin4/.pgpass
+    entrypoint: [ "sh", "-c", "chmod 0600 /pgadmin4/.pgpass && /entrypoint.sh" ]
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
