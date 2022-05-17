@@ -46,5 +46,6 @@ services:
       - "5050:80"
     volumes:
       - ./pgadmin4/servers.json:/pgadmin4/servers.json
+      - ./backend/imports/Product_Offers_Data.csv:/home/pgadmin/Product_Offers_Data.csv
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
