@@ -1,11 +1,10 @@
-version: "3.9"
 services:
   database:
     image: "postgres" # use latest official postgres version
     env_file:
       - database.env # configure postgres
     volumes:
-      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+      - database-data:/var/lib/postgresql # persist data even if container shuts down
     ports:
       - "5432:5432"
   populate-database:
@@ -17,7 +16,7 @@ services:
     volumes:
       - ./database_backups:/database_backups
     restart: 'no'
-    entrypoint: [ "bash", "-c", " sleep 5 && pg_restore --dbname=postgresql://postgres:MDigital21@database:5432/sequel-mart /database_backups/sequel-mart-20220501-complete"]
+    entrypoint: [ "bash", "-c", " sleep 5 && pg_restore --dbname=postgresql://postgres:MDigital21@database:5432/sequel-mart /database_backups/db_dump_2026"]
   app:
     image: 'node:8' # see https://github.com/nodejs/docker-node/blob/main/README.md#how-to-use-this-image
     user: 'node'
